@@ -1,6 +1,13 @@
 require_relative 'config/environment.rb'
 require "sinatra/activerecord/rake"
 
+
+
+desc "Run console"
+task :console do
+  Pry.start
+end
+
 namespace :db do
 
   desc "Migrate the db"
@@ -9,6 +16,8 @@ namespace :db do
     ActiveRecord::Base.establish_connection(connection_details)
     ActiveRecord::Migrator.migrate("db/migrate/")
   end
+
+
 
   desc "drop and recreate the db"
   task :reset => [:drop, :migrate]
